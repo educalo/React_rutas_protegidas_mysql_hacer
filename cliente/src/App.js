@@ -10,9 +10,9 @@ import ProtectedRoute from './components/utils/ProtectedRoute';
 import { useLocalStorage } from 'react-use';
 
 function App() {
-
+/*
   //const [user, setUser] = useLocalStorage('user');
-  const [user, setUser] = useState(false);
+  const [user, setUSer] = useState(false);
   
   //se usa para obtener datos de una API y actualizar el estado del componente con el resultado
     useEffect(()=> {
@@ -28,13 +28,13 @@ function App() {
         //if data=1 getUser(true) sino getUSer(false)
         .then(data => setUSer(true));
       }, [])
-
-
+*/
+//<Route element={<ProtectedRoute canActivate={user} redirectPath='/login' />}></Route>
   return (
     <BrowserRouter>
       <div className="container mt-5">
         <Routes>
-          <Route element={<ProtectedRoute canActivate={user} redirectPath='/login' />}>
+          <Route element={<ProtectedRoute canActivate={true} redirectPath='/login' />}>
             <Route path='' element={<Home />} />
             <Route path='about' element={<About />} />
           </Route>

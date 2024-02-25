@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-
+const a = 'edu'
+const b = 'cano'
 
 const Login = () => {
+
+
 
     //const [user, setUser] = useLocalStorage('user');
     const [user, setUser] = useState(false);
@@ -16,7 +19,8 @@ const Login = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: form_email.id, password: form_password.id })
+      body: JSON.stringify({ username: a })
+      //body: JSON.stringify({ username: a, password: b })
     };
     //si devuelve 1 es que existe el usuario si devuelve 0 no exite usuario
     fetch('http://localhost:3000/login', requestOptions)
@@ -25,7 +29,7 @@ const Login = () => {
         if (response==1){
             setUser(true)
         }else{
-            setUSer(false)
+            setUser(false)
         }
       })
     }, [])
@@ -35,6 +39,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
+        //cuando le damos al boton enviar que datos he introducidos estan en data
         console.log(data);
         //localStorage.setItem('user', JSON.stringify(data));
         navigate('/about');
