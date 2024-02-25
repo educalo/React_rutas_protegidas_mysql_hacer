@@ -29,7 +29,7 @@ app.get('/alllogin', (req, res) => {
 
 //username id
 app.get('/login/:id', (req, res) => {
-    conexion.query('SELECT * FROM articulos WHERE id = ?', [req.params.id], (error, fila)=>{
+    db.query('SELECT * FROM login WHERE id = ?', [req.params.id], (error, fila)=>{
         if(error){
             throw error
         }else{
@@ -40,9 +40,11 @@ app.get('/login/:id', (req, res) => {
 
 //Comprobar login, es exite devuelve 1 sino devuelve 0
 app.post('/login', (req,res)=>{
-    let data = {username:req.body.username, password:req.body.password}
-    let sql = "SELECT COUNT(*) FROM login WHERE username= ? AND password=?"
-    conexion.query(sql, data, function(err, result){
+    //let data = { username: req.params.a, password: req.params.b }
+    let data = { username: req.params.a}
+
+    let sql = "SELECT COUNT(*) FROM login WHERE username= ?"
+    db.query(sql, data, function(err, result){
             if(err){
                throw err
             }else{              
