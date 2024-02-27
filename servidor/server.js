@@ -1,9 +1,15 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const cors = require('cors');
 
+
 const app = express();
 app.use(cors());
+app.use(express.json());
+
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 
 //conexion con la bd
 const db = mysql.createConnection({
@@ -38,17 +44,28 @@ app.get('/login/:id', (req, res) => {
     })
 })
 
-//Comprobar login, es exite devuelve 1 sino devuelve 0
+//Comprobar login, es exite devuelve contador=1 sino devuelve contador=0
 app.post('/login', (req,res)=>{
     //let data = { username: req.params.a, password: req.params.b }
-    let data = { username: req.params.a}
+    let username = req.body.username;
+    //console.log(username)
+    let sql = "SELECT COUNT(*) as contador FROM login WHERE username = ?"
+    db.query(sql, [username], function(err, result){
+            //coger el dato del contador
+            //console.log(result)
+            var str=JSON.stringify(result);
+            //console.log(str);
+            var v =  JSON.parse(str);
+            //console.log(v[0].contador);
 
-    let sql = "SELECT COUNT(*) FROM login WHERE username= ?"
-    db.query(sql, data, function(err, result){
             if(err){
                throw err
-            }else{              
-             res.send(data) //enviamos los valores                         
+            }else{         
+            if (v[0].contador==1){     
+                res.send(true) //enviamos los valores                         
+            }else{
+                res.send(false) //enviamos los valores                         
+            }
         }
     })
 })

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-const a = 'edu'
-const b = 'cano'
 
 const Login = () => {
 
@@ -19,14 +17,14 @@ const Login = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: a })
+      body: JSON.stringify({ username: 'edu@gmail.com' })
       //body: JSON.stringify({ username: a, password: b })
     };
     //si devuelve 1 es que existe el usuario si devuelve 0 no exite usuario
     fetch('http://localhost:3000/login', requestOptions)
       .then(response => {
-        console.log(response);
-        if (response==1){
+        //console.log(response);
+        if (response == 1){
             setUser(true)
         }else{
             setUser(false)
@@ -41,6 +39,8 @@ const Login = () => {
     const onSubmit = (data) => {
         //cuando le damos al boton enviar que datos he introducidos estan en data
         console.log(data);
+        //setUser(document.getElementById('form_email').value)
+        console.log(user)
         //localStorage.setItem('user', JSON.stringify(data));
         navigate('/about');
     }
